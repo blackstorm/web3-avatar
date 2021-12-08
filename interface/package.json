@@ -1,0 +1,32 @@
+{
+  "name": "web3-avatar-interface",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lingui:extract": "lingui extract",
+    "lingui:compile": "lingui compile"
+  },
+  "dependencies": {
+    "@lingui/react": "^3.13.0",
+    "antd": "^4.17.2",
+    "less": "^4.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-syntax-jsx": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@lingui/cli": "^3.13.0",
+    "@lingui/macro": "^3.13.0",
+    "@vitejs/plugin-react": "^1.0.7",
+    "autoprefixer": "^10.4.0",
+    "babel-plugin-macros": "^3.1.0",
+    "postcss": "^8.4.4",
+    "tailwindcss": "^2.2.19",
+    "vite": "^2.7.0",
+    "vite-plugin-imp": "^2.0.10"
+  }
+}
