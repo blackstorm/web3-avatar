@@ -2,18 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
-import { UseWalletProvider } from "use-wallet";
+import { Web3ReactProvider } from "@web3-react/core";
+import Web3 from "web3";
+
+function getLibrary(provider) {
+  return new Web3(provider);
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <UseWalletProvider
-      chainId={5}
-      connectors={{
-        portis: { dAppId: "Web3A" },
-      }}
-    >
+    <Web3ReactProvider getLibrary={getLibrary}>
       <App />
-    </UseWalletProvider>
+    </Web3ReactProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

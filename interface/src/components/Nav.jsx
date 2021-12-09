@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import Logo from "../asserts/svg/logo.svg";
-import { Menu, Dropdown, Button, Radio, Tooltip } from "antd";
+import { Menu, Dropdown, Button, Tooltip } from "antd";
 import { MoreOutlined, GlobalOutlined } from "@ant-design/icons";
 import styled from "styled-components";
-import { useWallet } from "use-wallet";
+import Avatar from "./Avatar";
+import useWallet from "../hooks/wallet";
 
 const netIcon = (name) => {
   return `https://www.gemini.com/images/currencies/icons/default/${name}.svg`;
@@ -109,7 +110,7 @@ const ConnectWalletButton = () => {
       <Tooltip title={`Click to disconnect`}>
         <Button
           shape="round"
-          icon={<img src={Logo} className="w-4 h-4 inline-block mr-2" />}
+          icon={<Avatar className="w-4 h-4 inline-block mr-2" />}
         >{`${wallet.account.substring(0, 6)}...${wallet.account.substring(
           wallet.account.length - 4,
           wallet.account.length

@@ -4,6 +4,14 @@ import vitePluginImp from "vite-plugin-imp";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      process: "process/browser",
+      stream: "stream-browserify",
+      zlib: "browserify-zlib",
+      util: "util",
+    },
+  },
   plugins: [
     react(),
     vitePluginImp({
@@ -21,6 +29,16 @@ export default defineConfig({
       less: {
         javascriptEnabled: true,
       },
+    },
+  },
+  build: {
+    rollupOptions: {
+      external: ['web3'],
+      output: {
+        manualChunks: {
+          lib: ["antd", "react"],
+        },
+      }
     },
   },
 });
