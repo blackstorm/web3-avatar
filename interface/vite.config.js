@@ -33,12 +33,13 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['web3'],
+      // external: ['web3'],
       output: {
         manualChunks: {
-          lib: ["antd", "react"],
+          lib: ["antd", "react", "ipfs-http-client"],
+          web3: ["web3"],
         },
-      }
+      },
     },
   },
 });
