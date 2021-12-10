@@ -8,7 +8,7 @@ const useWallet = () => {
   const { active, account, library, connector, activate, deactivate } =
     useWeb3React();
 
-  const connected = async () => {
+  const connect = async () => {
     return activate(injected);
   };
 
@@ -19,7 +19,7 @@ const useWallet = () => {
   return {
     status,
     account,
-    connected,
+    connect,
     disconnect,
   };
 };

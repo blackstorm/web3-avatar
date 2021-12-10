@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Logo from "../asserts/svg/logo.svg";
 import { Menu, Dropdown, Button, Tooltip } from "antd";
 import { MoreOutlined, GlobalOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import Avatar from "./Avatar";
-import useWallet from "../hooks/wallet";
+import { useWeb3React } from "@web3-react/core";
+import { injected } from "../wallet/connectors";
+import { shortAddress } from "../utils/account";
 
 const netIcon = (name) => {
   return `https://www.gemini.com/images/currencies/icons/default/${name}.svg`;
@@ -95,31 +97,32 @@ const CuteLogo = styled.img`
 `;
 
 const ConnectWalletButton = () => {
-  const wallet = useWallet();
+  const [isConnecting, setIsConnecting] = useState(false);
+  const wallet = useWeb3React();
 
-  useEffect(() => {
-    console.log(wallet);
-  }, [wallet]);
-
-  const connectWallet = () => {
-    wallet.connect();
+  const connectWallet = async () => {
+    try {
+      setIsConnecting(true);
+      await wallet.activate(injected);
+    } finally {
+      setIsConnecting(false);
+    }
   };
 
-  if (wallet.status == "connected") {
+  if (wallet.active) {
     return (
       <Tooltip title={`Click to disconnect`}>
         <Button
           shape="round"
           icon={<Avatar className="w-4 h-4 inline-block mr-2" />}
-        >{`${wallet.account.substring(0, 6)}...${wallet.account.substring(
-          wallet.account.length - 4,
-          wallet.account.length
-        )}`}</Button>
+        >
+          {shortAddress(wallet.account)}
+        </Button>
       </Tooltip>
     );
   }
 
-  if (wallet.status == "connecting") {
+  if (isConnecting) {
     return <Button type="text" shape="circle" loading={true} disabled={true} />;
   }
 

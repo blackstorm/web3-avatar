@@ -5,6 +5,7 @@ import UploadSVG from "./components/UploadSVG";
 import Menu from "./components/Menu";
 import UploadButton from "./components/UploadButton";
 import Avatar from "./components/Avatar";
+import useIPFS from "./hooks/ipfs";
 
 const ImageContainer = styled.div`
   width: 250px;
@@ -28,6 +29,7 @@ const PreviewAvatar = (props) => {
 const App = () => {
   const [file, setFile] = useState();
   const fileInputRef = useRef();
+  const ipfs = useIPFS();
 
   const onImageContainerClick = (e) => {
     e.preventDefault();
@@ -45,8 +47,8 @@ const App = () => {
   const onUploadButtonClick = async (e) => {
     e.preventDefault();
     if (file) {
-      const added = await IPFS.upload(file)
-      console.log(added)
+      const added = await ipfs.add(file);
+      console.log(added.data);
     }
   };
 
