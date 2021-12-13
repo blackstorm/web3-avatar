@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Nav from "./components/Nav";
 import styled from "styled-components";
 import UploadSVG from "./components/UploadSVG";
@@ -6,30 +6,30 @@ import Menu from "./components/Menu";
 import UploadButton from "./components/UploadButton";
 import Avatar from "./components/Avatar";
 import useIPFS from "./hooks/ipfs";
+import { imageReader } from "./utils/reader";
 
 const ImageContainer = styled.div`
   width: 250px;
   height: 250px;
 `;
 
-const PreviewAvatar = (props) => {
-  const { src, className, ...rest } = props;
-
-  return (
-    <div className={`w-10 h-10" ${className}`} {...rest}>
-      {src ? (
-        <img src={src} alt="" />
-      ) : (
-        <UploadSVG style={{ color: "#c84648" }} />
-      )}
-    </div>
-  );
-};
-
 const App = () => {
   const [file, setFile] = useState();
+  const [isDisableUploadButton, setIsDisableUploadButton] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
+  const [avatarSrc, setAvatarSrc] = useState();
+
   const fileInputRef = useRef();
   const ipfs = useIPFS();
+
+  useEffect(() => {
+    setIsDisableUploadButton(!file);
+    if (file) {
+      imageReader(file, (res) => {
+        setAvatarSrc(res);
+      });
+    }
+  }, [file]);
 
   const onImageContainerClick = (e) => {
     e.preventDefault();
@@ -54,13 +54,6 @@ const App = () => {
 
   return (
     <div className="flex flex-col">
-      <input
-        type="file"
-        accept="image/*"
-        ref={fileInputRef}
-        className="hidden"
-        onChange={onFileInputChange}
-      />
       <Nav />
       <div className="flex flex-col p-4 mt-2">
         <Menu />
@@ -70,15 +63,23 @@ const App = () => {
               onClick={onImageContainerClick}
               className="absolute flex bg-black bg-opacity-20 w-full h-full rounded-full z-50 invisible group-hover:visible cursor-pointer"
             >
-              <PreviewAvatar className="mx-auto my-auto" />
+              <div className="w-10 h-10 m-auto">
+                <UploadSVG style={{ color: "#c84648" }} />
+              </div>
             </div>
-            <Avatar className="absolute w-full h-full rounded-full z-0" />
+            <Avatar
+              src={avatarSrc}
+              className="absolute w-full h-full rounded-full z-0"
+            />
           </ImageContainer>
 
           <div className="mt-10">
             <UploadButton
-              className="w-full py-4 text-xl"
+              className={`w-full py-4 text-xl ${
+                isUploading && "uploading-animation"
+              }`}
               onClick={onUploadButtonClick}
+              disabled={isDisableUploadButton || isUploading}
             >
               Upload
             </UploadButton>

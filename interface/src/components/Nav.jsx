@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import Logo from "../asserts/svg/logo.svg";
-import { Menu, Dropdown, Button, Tooltip } from "antd";
+import { Menu, Dropdown, Tooltip } from "antd";
 import { MoreOutlined, GlobalOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import Avatar from "./Avatar";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../wallet/connectors";
 import { shortAddress } from "../utils/account";
+import { FlexButton } from "./Button";
+import Logo from "./Logo";
 
 const netIcon = (name) => {
   return `https://www.gemini.com/images/currencies/icons/default/${name}.svg`;
@@ -46,7 +47,7 @@ const NetSelector = () => {
 
   return (
     <Dropdown overlay={menu} placement="bottomRight" arrow>
-      <Button shape="round">Ethereum</Button>
+      <FlexButton shape="round">Ethereum</FlexButton>
     </Dropdown>
   );
 };
@@ -69,7 +70,9 @@ const More = () => {
 
   return (
     <Dropdown overlay={menu} placement="bottomRight" arrow>
-      <Button shape="circle" type="text" icon={<MoreOutlined />}></Button>
+      <FlexButton className="w-10">
+        <MoreOutlined className="mx-auto" />
+      </FlexButton>
     </Dropdown>
   );
 };
@@ -84,17 +87,14 @@ const Lang = () => {
 
   return (
     <Dropdown overlay={menu} placement="bottomRight" arrow>
-      <Button type="text" shape="circle" icon={<GlobalOutlined />}></Button>
+      <FlexButton
+        type="text"
+        shape="circle"
+        icon={<GlobalOutlined />}
+      ></FlexButton>
     </Dropdown>
   );
 };
-
-const CuteLogo = styled.img`
-  &:hover {
-    transform: rotate(-20deg);
-    transition-duration: 100ms;
-  }
-`;
 
 const ConnectWalletButton = () => {
   const [isConnecting, setIsConnecting] = useState(false);
@@ -112,24 +112,25 @@ const ConnectWalletButton = () => {
   if (wallet.active) {
     return (
       <Tooltip title={`Click to disconnect`}>
-        <Button
-          shape="round"
-          icon={<Avatar className="w-4 h-4 inline-block mr-2" />}
-        >
-          {shortAddress(wallet.account)}
-        </Button>
+        <FlexButton>
+          <Avatar className="w-4 h-4 inline-block mr-2" />
+          <span>{shortAddress(wallet.account)}</span>
+        </FlexButton>
       </Tooltip>
     );
   }
 
   if (isConnecting) {
-    return <Button type="text" shape="circle" loading={true} disabled={true} />;
+    return <FlexButton loading={true} disabled={true} />;
   }
 
   return (
-    <Button shape="round" onClick={connectWallet}>
-      Connect Wallet
-    </Button>
+    <Tooltip title={`Click to connect to your wallet.`}>
+      <FlexButton onClick={connectWallet} className="connect-wallet-btn">
+        <span className="hi">👋🏻</span>
+        Connect Wallet
+      </FlexButton>
+    </Tooltip>
   );
 };
 
@@ -138,14 +139,14 @@ const Nav = () => {
     <nav className="flex items-center justify-between p-4">
       <div>
         <a href="/">
-          <CuteLogo src={Logo} alt="logo" className="w-8" />
+          <Logo alt="logo" className="w-8" />
         </a>
       </div>
 
       <div className="flex flex-row space-x-1 md:space-x-2">
-        <NetSelector />
+        {/* <NetSelector /> */}
         <ConnectWalletButton />
-        <Lang />
+        {/* <Lang /> */}
         <More />
       </div>
     </nav>
