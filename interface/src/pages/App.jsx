@@ -5,6 +5,9 @@ import Avatar from "../components/Avatar";
 import useIPFS from "../hooks/ipfs";
 import { imageReader } from "../utils/reader";
 import styled from "styled-components";
+import { useWeb3React } from "@web3-react/core";
+import ABI from "../abi/Web3Avatar.abi.json";
+import Contract from "web3-eth-contract";
 
 const ImageContainer = styled.div`
   width: 250px;
@@ -12,6 +15,7 @@ const ImageContainer = styled.div`
 `;
 
 const App = () => {
+  const { active, account, library } = useWeb3React();
   const [file, setFile] = useState();
   const [isDisableUploadButton, setIsDisableUploadButton] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
@@ -45,8 +49,24 @@ const App = () => {
   const onUploadButtonClick = async (e) => {
     e.preventDefault();
     if (file) {
-      const added = await ipfs.add(file);
-      console.log(added.data);
+      try {
+        setIsUploading(true);
+        const added = await ipfs.add(file);
+        Contract.setProvider(library);
+        const contract = new Contract(
+          ABI,
+          // contract address
+          "0xEBFFe5EEe4a3a195cC726B0Aa3D7988Ed480679a"
+        );
+        // console.log(added)
+        const res = await contract.methods
+          .setAvatar("default", added.data.Hash)
+          .send({ from: account });
+        // TODO handle res
+        console.log(res);
+      } finally {
+        setIsUploading(false);
+      }
     }
   };
 
@@ -82,14 +102,13 @@ const App = () => {
           onClick={onUploadButtonClick}
           disabled={isDisableUploadButton || isUploading}
         >
-          Upload
+          {active ? "Upload" : "Please connect your wallet"}
         </UploadButton>
       </div>
 
       <div className="my-4 text-gray-400 text-center">
         <p>
-          Your avatar will be upload to IPFS, And store the IPFS hash to you
-          selected chain.
+          Your avatar will be upload to IPFS.
         </p>
       </div>
     </>

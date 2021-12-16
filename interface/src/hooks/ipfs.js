@@ -2,7 +2,7 @@ import axios from "axios";
 
 const client = axios.create({
   baseURL: "https://ipfs.infura.io:5001/api/v0",
-  timeout: 5000,
+  timeout: 30000,
 });
 
 const useIPFS = () => {
