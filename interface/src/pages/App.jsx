@@ -4,6 +4,12 @@ import UploadButton from "../components/UploadButton";
 import Avatar from "../components/Avatar";
 import useIPFS from "../hooks/ipfs";
 import { imageReader } from "../utils/reader";
+import styled from "styled-components";
+
+const ImageContainer = styled.div`
+  width: 250px;
+  height: 250px;
+`;
 
 const App = () => {
   const [file, setFile] = useState();

@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Menu, Dropdown, Tooltip } from "antd";
 import { MoreOutlined, GlobalOutlined } from "@ant-design/icons";
-import styled from "styled-components";
 import Avatar from "./Avatar";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../wallet/connectors";
@@ -52,19 +51,29 @@ const NetSelector = () => {
   );
 };
 
+const moreLinks = [
+  {
+    link: "https://github.com/blackstorm/web3-avatar",
+    name: "GitHub",
+  },
+  {
+    link: "https://github.com/blackstorm/web3-avatar",
+    name: "About",
+  },
+];
+
 const More = () => {
   const menu = (
     <Menu>
-      <Menu.Item>
-        <a href="https://github.com/blackstorm/web3-avatar" target="_blank">
-          Github
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="https://github.com/blackstorm/web3-avatar" target="_blank">
-          About
-        </a>
-      </Menu.Item>
+      {moreLinks.map((it) => {
+        return (
+          <Menu.Item key={it.name}>
+            <a href={it.link} target="_blank">
+              {it.name}
+            </a>
+          </Menu.Item>
+        );
+      })}
     </Menu>
   );
 
@@ -144,6 +153,12 @@ const Nav = () => {
       </div>
 
       <div className="flex flex-row space-x-1 md:space-x-2">
+        <FlexButton as="a" href="/" className="get-w3a-btn">
+          Airdrop
+        </FlexButton>
+        <FlexButton as="a" href="/" className="get-w3a-btn">
+          $W3A
+        </FlexButton>
         {/* <NetSelector /> */}
         <ConnectWalletButton />
         {/* <Lang /> */}

@@ -26,9 +26,14 @@
   }
 }
 
+.main-text-color,
+.get-w3a-btn {
+  color: #c84648 !important;
+}
+
 .connect-wallet-btn {
   background-color: #c84648 !important;
-  color: #fff;
+  color: #fff !important;
 }
 
 .connect-wallet-btn .hi {
