@@ -1,10 +1,7 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-
-contract Web3Avatar is Initializable, OwnableUpgradeable {
+contract Web3Avatar {
 
   mapping(address => mapping(string => string)) private avatars;
 
