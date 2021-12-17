@@ -4,8 +4,8 @@ pool:
 steps:
   - task: Docker@2
     inputs:
-      containerRegistry: 'w3a'
-      repository: 'gateway'
+      containerRegistry: 'github'
+      repository: 'blackstorm/web3-avatar/gateway'
       command: 'buildAndPush'
       Dockerfile: 'Dockerfile'
       buildContext: '.'
