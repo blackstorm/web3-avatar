@@ -1,0 +1,4 @@
+{
+  "plugins": ["macros", "@babel/plugin-syntax-jsx"],
+  "presets": ["@babel/preset-react"]
+}

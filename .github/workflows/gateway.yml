@@ -1,0 +1,46 @@
+name : gateway release
+
+on:
+  release:
+    types: [created]
+    paths:
+    - 'gateway/**'
+
+jobs:
+  
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # https://github.community/t5/GitHub-Actions/How-to-get-just-the-tag-name/m-p/32167#M1027
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Build image
+        run: |
+          IMAGE_TAG=${{ steps.get_version.outputs.VERSION }}
+          make docker-build
+          make docker-push
+        working-directory: gateway
+  
+  release:
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Kube render
+        run: |
+          IMAGE_TAG=${{ steps.get_version.outputs.VERSION }}
+          INFURA_TOKEN=${{ secrets.INFURA_TOKEN }}
+          make kube-render
+        working-directory: gateway
+      - name: Release
+        uses: steebchen/kubectl@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          KUBECTL_VERSION: "1.17"
+        with:
+          args: apply -f ./gateway/kube.yaml

@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind utilities;
+
+.uploading-animation {
+  background-image: linear-gradient(
+    to right,
+    #e7484f,
+    #e7484f 16.65%,
+    #f68b1d 16.65%,
+    #f68b1d 33.3%,
+    #fced00 33.3%,
+    #fced00 49.95%,
+    #009e4f 49.95%,
+    #009e4f 66.6%,
+    #00aac3 66.6%,
+    #00aac3 83.25%,
+    #732982 83.25%,
+    #732982 100%
+  );
+  animation: slidebg 3s linear infinite;
+}
+
+@keyframes slidebg {
+  to {
+    background-position: 30rem;
+  }
+}
+
+.main-text-color,
+.get-w3a-btn {
+  color: #c84648 !important;
+}
+
+.connect-wallet-btn {
+  background-color: #c84648 !important;
+  color: #fff !important;
+}
+
+.connect-wallet-btn .hi {
+  animation-name: shakeAnimation;
+  transform-origin: center bottom;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  animation-delay: 0.2s;
+}
+
+@keyframes shakeAnimation {
+  0% {
+    transform: rotate(0deg);
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  10% {
+    transform: rotate(-12deg);
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  20% {
+    transform: rotate(12deg);
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  28% {
+    transform: rotate(-10deg);
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  36% {
+    transform: rotate(10deg);
+    transition-timing-function: cubic-bezier(0.755, 0.5, 0.855, 0.06);
+  }
+
+  42% {
+    transform: rotate(-8deg);
+    transition-timing-function: cubic-bezier(0.755, 0.5, 0.855, 0.06);
+  }
+
+  48% {
+    transform: rotate(8deg);
+    transition-timing-function: cubic-bezier(0.755, 0.5, 0.855, 0.06);
+  }
+
+  52% {
+    transform: rotate(-4deg);
+    transition-timing-function: cubic-bezier(0.755, 0.5, 0.855, 0.06);
+  }
+
+  56% {
+    transform: rotate(4deg);
+    transition-timing-function: cubic-bezier(0.755, 0.5, 0.855, 0.06);
+  }
+
+  60% {
+    transform: rotate(0deg);
+    transition-timing-function: cubic-bezier(0.755, 0.5, 0.855, 0.06);
+  }
+
+  100% {
+    transform: rotate(0deg);
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+}

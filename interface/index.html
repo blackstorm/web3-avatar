@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/asserts/svg/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web3a - Web 3.0 Avatar</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script> -->
+    <script>
+      window.global = window;
+    </script>
+    <script type="module">
+      import process from "process";
+      import { Buffer } from "buffer";
+      import EventEmitter from "events";
+
+      window.Buffer = Buffer;
+      window.process = process;
+      window.EventEmitter = EventEmitter;
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

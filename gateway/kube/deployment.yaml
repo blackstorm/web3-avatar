@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  namespace: w3a
+  labels: w3a-app:gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels: w3a-app:gateway
+  template:
+    metadata:
+      labels: w3a-app:gateway
+    spec:
+      containers:
+        - name: gateway
+          image: X-IMAGE
+          resources:
+            limits:
+              memory: 32Mi
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          env:
+          - name: INFURA_TOKEN
+            value: X-INFURA_TOKEN
