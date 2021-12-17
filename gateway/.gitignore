@@ -13,4 +13,6 @@ __azurite_db*__.json
 main
 
 # idea
-.idea
+.idea/
+
+kube.yaml

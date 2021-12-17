@@ -18,7 +18,7 @@ func init() {
 		}
 	}
 
-	w, err := NewProxy(os.Getenv("CONTRACT_ADDRESS"), os.Getenv("INFURA_TOKEN"))
+	w, err := NewProxy(os.Getenv("INFURA_TOKEN"))
 	if err != nil {
 		panic(err)
 	}

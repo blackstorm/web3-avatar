@@ -10,14 +10,14 @@ type Proxy struct {
 	contract *Web3Avatar
 }
 
-func NewProxy(contract string, infuraToken string) (*Proxy, error) {
+func NewProxy(infuraToken string) (*Proxy, error) {
 	cli, err := ethclient.Dial("wss://goerli.infura.io/ws/v3/" + infuraToken)
 
 	if err != nil {
 		return nil, err
 	}
 
-	instance, err := NewWeb3Avatar(common.HexToAddress(contract), cli)
+	instance, err := NewWeb3Avatar(ContractAddress, cli)
 
 	if err != nil {
 		return nil, err

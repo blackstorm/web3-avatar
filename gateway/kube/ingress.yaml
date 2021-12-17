@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: w3a
+  name: avatar.web3a.org
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+    - hosts:
+        - "avatar.web3a.org"
+      secretName: "avatar.web3a.org"
+  rules:
+    - host: "avatar.web3a.org"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gateway-http-service
+                port:
+                  number: 80

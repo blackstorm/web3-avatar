@@ -1,0 +1,1 @@
+ kustomize build . | sed 's@$IMAGE@'"$IMAGE"'@' | sed 's@$INFURA_TOKEN@'"$INFURA_TOKEN"'@' > render.yaml

@@ -15,7 +15,7 @@ func init() {
 }
 
 func TestGetAvatar(t *testing.T) {
-	web3, err := NewProxy(os.Getenv("CONTRACT_ADDRESS"), os.Getenv("INFURA_TOKEN"))
+	web3, err := NewProxy(os.Getenv("INFURA_TOKEN"))
 	if err != nil {
 		t.Error(err)
 	}
