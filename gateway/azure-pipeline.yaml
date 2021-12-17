@@ -10,7 +10,7 @@ steps:
       addPipelineData: false
       buildContext: '.'
 
-  - script: 'mkdir dist && sh ./deploy/azure-pipeline-artifacts.sh ./deploy/gateway.yaml $(Build.BuildId) ./dist/gateway.yaml'
+  - script: 'mkdir dist && cp ./deploy/gateway.yaml ./dist/gateway.yaml'
     displayName: 'azure-pipeline-artifacts'
 
   - task: PublishBuildArtifacts@1
