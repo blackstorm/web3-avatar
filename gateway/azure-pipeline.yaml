@@ -7,8 +7,7 @@ steps:
       containerRegistry: 'github'
       repository: 'blackstorm/web3-avatar/gateway'
       command: 'buildAndPush'
-      Dockerfile: '../Dockerfile'
-      buildContext: '../'
+      buildContext: '.'
 
   - script: 'mkdir dist && sh ./deploy/azure-pipeline-artifacts.sh ./deploy/gateway.yaml $(Build.BuildId) ./dist/gateway.yaml'
     displayName: 'azure-pipeline-artifacts'
