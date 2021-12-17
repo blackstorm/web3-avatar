@@ -10,8 +10,11 @@ steps:
       addPipelineData: false
       buildContext: '.'
 
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact'
+  - task: CopyFiles@2
     inputs:
-      PathtoPublish: deploy
-      ArtifactName: deploy
+      contents: 'deploy/**'
+      targetFolder: $(Build.ArtifactStagingDirectory)
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)
