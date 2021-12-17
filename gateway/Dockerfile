@@ -7,6 +7,10 @@ RUN make build
 FROM debian:buster
 
 WORKDIR /app
-COPy --from=BUILDER /app/main .
+
+RUN apt-get update && apt-get install -y ca-certificates && apt-get clean
+COPY --from=BUILDER /app/main .
+
+EXPOSE 8080 8080
 
 ENTRYPOINT ["/app/main"]

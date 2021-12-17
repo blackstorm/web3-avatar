@@ -5,4 +5,4 @@ build:
 	go build -o main
 
 docker-build:
-	docker build -t w3a/gateway .
+	docker build -t ghcr.io/blackstorm/web3-avatar/gateway:latest .
