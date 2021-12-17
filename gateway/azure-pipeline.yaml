@@ -4,7 +4,7 @@ pool:
 steps:
   - task: Docker@2
     inputs:
-      containerRegistry: 'github'
+      containerRegistry: 'w3a'
       repository: 'gateway'
       command: 'buildAndPush'
       Dockerfile: 'Dockerfile'
