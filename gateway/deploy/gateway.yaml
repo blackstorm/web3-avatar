@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  namespace: w3a
+  labels:
+    w3a-app: gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      w3a-app: gateway
+  template:
+    metadata:
+      labels:
+        w3a-app: gateway
+    spec:
+      containers:
+        - name: gateway
+          image: ghcr.io/blackstorm/web3-avatar/gateway:latest
+          resources:
+            limits:
+              memory: 64Mi
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-http-service
+  labels:
+    w3a-app: gateway
+  namespace: w3a
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+  selector:
+    w3a-app: gateway

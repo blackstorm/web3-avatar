@@ -1,1 +1,0 @@
-abigen --pkg main --sol ../contract/contracts/Web3Avatar.sol --out web3avatar_contract.go

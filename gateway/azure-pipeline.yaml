@@ -1,0 +1,20 @@
+pool:
+  vmImage: 'Ubuntu 20.04'
+
+steps:
+  - task: Docker@2
+    inputs:
+      containerRegistry: 'github'
+      repository: 'gateway'
+      command: 'buildAndPush'
+      Dockerfile: 'Dockerfile'
+      buildContext: '.'
+
+  - script: 'mkdir dist && sh ./deploy/azure-pipeline-artifacts.sh ./deploy/gateway.yaml $(Build.BuildId) ./dist/gateway.yaml'
+    displayName: 'azure-pipeline-artifacts'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact'
+    inputs:
+      PathtoPublish: dist
+      ArtifactName: dist

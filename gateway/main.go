@@ -13,7 +13,9 @@ var web3 *Proxy
 func init() {
 	err := godotenv.Load()
 	if err != nil {
-		panic(err)
+		if !os.IsNotExist(err) {
+			panic(err)
+		}
 	}
 
 	w, err := NewProxy(os.Getenv("CONTRACT_ADDRESS"), os.Getenv("INFURA_TOKEN"))
