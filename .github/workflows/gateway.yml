@@ -39,14 +39,14 @@ jobs:
       - name: Get version
         id: tag
         run: echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
-      - name: Kube render
+      - name: Kube manifest
         run: |
           kustomize edit set image gateway=ghcr.io/blackstorm/web3-avatar/gateway:${{ steps.tag.outputs.TAG }}
-          kustomize build . | sed 's/GITHUB_SECRETS_INFURA_TOKEN/${{ secrets.INFURA_TOKEN}}/g' > 0.yaml
+          kustomize build . | sed 's/GITHUB_SECRETS_INFURA_TOKEN/${{ secrets.INFURA_TOKEN }}/g' > 0.yaml
         working-directory: gateway/kube
       - name: Release
         uses: steebchen/kubectl@v2.0.0
         with:
           config: ${{ secrets.KUBE_CONFIG_DATA }}
           version: v1.21.0
-          command: apply -f ./gateway/kube.yaml
+          command: apply -f ./gateway/kube/0.yaml
