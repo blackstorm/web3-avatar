@@ -6,10 +6,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
-  tls:
-    - hosts:
-        - "avatar.web3a.org"
-      secretName: "avatar.web3a.org"
   rules:
     - host: "avatar.web3a.org"
       http:
