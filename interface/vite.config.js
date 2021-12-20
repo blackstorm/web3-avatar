@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import inject from '@rollup/plugin-inject';
 import react from "@vitejs/plugin-react";
 import vitePluginImp from "vite-plugin-imp";
 
@@ -34,6 +35,10 @@ export default defineConfig({
   build: {
     rollupOptions: {
       // external: ['web3'],
+      plugins: [inject({ Buffer: ['buffer', 'Buffer'] })],
+      commonjsOptions: {
+        transformMixedEsModules: true,
+      },
       output: {
         manualChunks: {
           lib: ["antd", "react"],
