@@ -3,18 +3,21 @@ kind: Deployment
 metadata:
   name: gateway
   namespace: w3a
-  labels: w3a-app:gateway
+  labels:
+    w3a-app: gateway
 spec:
   replicas: 1
   selector:
-    matchLabels: w3a-app:gateway
+    matchLabels:
+      w3a-app: gateway
   template:
     metadata:
-      labels: w3a-app:gateway
+      labels:
+        w3a-app: gateway
     spec:
       containers:
         - name: gateway
-          image: X-IMAGE
+          image: gateway
           resources:
             limits:
               memory: 32Mi
@@ -24,4 +27,4 @@ spec:
               protocol: TCP
           env:
           - name: INFURA_TOKEN
-            value: X-INFURA_TOKEN
+            value: GITHUB_SECRETS_INFURA_TOKEN

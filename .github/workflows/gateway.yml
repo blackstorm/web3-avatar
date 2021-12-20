@@ -13,14 +13,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # https://github.community/t5/GitHub-Actions/How-to-get-just-the-tag-name/m-p/32167#M1027
-      - name: Get version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+
+      - name: Image Tag
+        id: tag
+        run: echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
+
       - name: Build image
         run: |
-          IMAGE_TAG=${{ steps.get_version.outputs.VERSION }}
-          make docker-build
-          make docker-push
+          docker build -t ghcr.io/blackstorm/web3-avatar/gateway:${{ steps.tag.outputs.TAG }} .
+          docker push ghcr.io/blackstorm/web3-avatar/gateway:${{ steps.tag.outputs.TAG }}
         working-directory: gateway
   
   release:
@@ -29,18 +37,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Get version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-      - name: Kube render
+        id: tag
+        run: echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
+      - name: Kube manifest
         run: |
-          IMAGE_TAG=${{ steps.get_version.outputs.VERSION }}
-          INFURA_TOKEN=${{ secrets.INFURA_TOKEN }}
-          make kube-render
-        working-directory: gateway
+          kustomize edit set image gateway=ghcr.io/blackstorm/web3-avatar/gateway:${{ steps.tag.outputs.TAG }}
+          kustomize build . | sed 's/GITHUB_SECRETS_INFURA_TOKEN/${{ secrets.INFURA_TOKEN }}/g' > 0.yaml
+        working-directory: gateway/kube
       - name: Release
-        uses: steebchen/kubectl@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-          KUBECTL_VERSION: "1.17"
+        uses: steebchen/kubectl@v2.0.0
         with:
-          args: apply -f ./gateway/kube.yaml
+          config: ${{ secrets.KUBE_CONFIG_DATA }}
+          version: v1.21.0
+          command: apply -f ./gateway/kube/0.yaml
