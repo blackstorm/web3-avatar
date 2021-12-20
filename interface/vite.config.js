@@ -36,7 +36,7 @@ export default defineConfig({
       // external: ['web3'],
       output: {
         manualChunks: {
-          lib: ["antd", "react", "ipfs-http-client"],
+          lib: ["antd", "react"],
           web3: ["web3"],
         },
       },
