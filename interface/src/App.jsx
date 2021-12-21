@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Menu from "./components/Menu";
@@ -6,8 +7,16 @@ import View from "./pages/View";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
+  const [isNotFoundWindowEthereum, _] = useState(!window.ethereum);
+
   return (
     <div className="flex flex-col">
+      {isNotFoundWindowEthereum && (
+        <div className="w-full main-bg main-text-color p-4 text-center">
+          No crypto wallet found. Please install.
+        </div>
+      )}
+
       <Nav />
       <div className="flex flex-col p-4 mt-2">
         <Menu />

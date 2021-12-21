@@ -36,15 +36,15 @@ export default defineConfig({
     rollupOptions: {
       // external: ['web3'],
       plugins: [inject({ Buffer: ['buffer', 'Buffer'] })],
-      commonjsOptions: {
-        transformMixedEsModules: true,
-      },
-      output: {
-        manualChunks: {
-          lib: ["antd", "react", "react-dom", "react-router-dom"],
-          web3: ["web3"],
-        },
-      },
+      // commonjsOptions: {
+      //   transformMixedEsModules: true,
+      // },
+      // output: {
+      //   manualChunks: {
+      //     lib: ["antd", "react", "react-dom", "react-router-dom"],
+      //     web3: ["web3"],
+      //   },
+      // },
     },
   },
 });
