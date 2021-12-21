@@ -39,12 +39,12 @@ export default defineConfig({
       // commonjsOptions: {
       //   transformMixedEsModules: true,
       // },
-      output: {
-        manualChunks: {
-          lib: ["antd", "react", "react-dom", "react-router-dom"],
-          web3: ["web3"],
-        },
-      },
+      // output: {
+      //   manualChunks: {
+      //     lib: ["antd", "react", "react-dom", "react-router-dom"],
+      //     web3: ["web3"],
+      //   },
+      // },
     },
   },
 });
