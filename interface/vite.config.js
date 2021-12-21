@@ -41,7 +41,7 @@ export default defineConfig({
       },
       output: {
         manualChunks: {
-          lib: ["antd", "react"],
+          lib: ["antd", "react", "react-dom", "react-router-dom"],
           web3: ["web3"],
         },
       },

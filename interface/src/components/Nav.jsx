@@ -134,7 +134,7 @@ const ConnectWalletButton = () => {
   }
 
   return (
-    <Tooltip title={`Click to connect to your wallet.`}>
+    <Tooltip title={`Connect to your wallet, Use Goerli test net.`}>
       <FlexButton onClick={connectWallet} className="connect-wallet-btn">
         <span className="hi">👋🏻</span>
         Connect Wallet
@@ -146,10 +146,18 @@ const ConnectWalletButton = () => {
 const Nav = () => {
   return (
     <nav className="flex items-center justify-between p-4">
-      <div>
-        <a href="/">
+      <div className="flex flex-row items-center">
+        <a href="/" className="inline-block">
           <Logo alt="logo" className="w-8" />
         </a>
+        <Tooltip
+          title={`We are now only work on Goerli test net.`}
+          placement="right"
+        >
+          <span className="hidden md:inline-block ml-2 font-medium text-neutral-400">
+            TESTNET
+          </span>
+        </Tooltip>
       </div>
 
       <div className="flex flex-row space-x-1 md:space-x-2">
