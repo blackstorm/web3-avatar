@@ -45,8 +45,23 @@ func handle(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 		return
 	}
 
+	gatewayParam := params.ByName("gateway")
+	gateway := DEFAULT
+	switch gatewayParam {
+	case "cloudflare":
+		gateway = CLOUDFLARE
+	case "ipfs-io":
+		gateway = IPFS_IO
+	case "dweb":
+		gateway = DWEB_LINK
+	case "infura":
+		gateway = INFURA_IO
+	default:
+		gateway = DEFAULT
+	}
+
 	accessControlHeaders(w)
-	w.Header().Add("Location", "https://cloudflare-ipfs.com/ipfs/"+avatar)
+	w.Header().Add("Location", gateway+avatar)
 	w.WriteHeader(302)
 }
 
