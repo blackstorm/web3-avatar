@@ -45,12 +45,12 @@ func handle(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 		return
 	}
 
-	gatewayParam := params.ByName("gateway")
+	gatewayParam := r.URL.Query().Get("gateway")
 	gateway := DEFAULT
 	switch gatewayParam {
 	case "cloudflare":
 		gateway = CLOUDFLARE
-	case "ipfs-io":
+	case "ipfs":
 		gateway = IPFS_IO
 	case "dweb":
 		gateway = DWEB_LINK
