@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { useWeb3React } from "@web3-react/core";
 import ABI from "../abi/Web3Avatar.abi.json";
 import Contract from "web3-eth-contract";
+import web3 from "web3";
 
 const ImageContainer = styled.div`
   width: 250px;
@@ -58,12 +59,12 @@ const App = () => {
           // contract address
           "0xEBFFe5EEe4a3a195cC726B0Aa3D7988Ed480679a"
         );
-        // console.log(added)
-        const res = await contract.methods
+        contract.methods
           .setAvatar("default", added.data.Hash)
-          .send({ from: account });
-        // TODO handle res
-        console.log(res);
+          .send({ from: account })
+          .then((res) => {
+            console.log(res);
+          });
       } finally {
         setIsUploading(false);
       }
@@ -107,9 +108,7 @@ const App = () => {
       </div>
 
       <div className="my-4 text-gray-400 text-center">
-        <p>
-          Your avatar will be upload to IPFS.
-        </p>
+        <p>Your avatar will be upload to IPFS.</p>
       </div>
     </>
   );
