@@ -7,8 +7,7 @@ import { imageReader } from "../utils/reader";
 import styled from "styled-components";
 import { useWeb3React } from "@web3-react/core";
 import ABI from "../abi/Web3Avatar.abi.json";
-import Contract from "web3-eth-contract";
-import web3 from "web3";
+import { Contract } from "web3-eth-contract";
 
 const ImageContainer = styled.div`
   width: 250px;
