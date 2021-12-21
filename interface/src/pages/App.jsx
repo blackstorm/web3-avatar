@@ -52,16 +52,19 @@ const App = () => {
       try {
         setIsUploading(true);
         const added = await ipfs.add(file);
+        console.log("added", added);
         Contract.setProvider(library);
+        console.log("new Contract");
         const contract = new Contract(
           ABI,
           // contract address
-          "0xEBFFe5EEe4a3a195cC726B0Aa3D7988Ed480679a"
+          "0xEBFFe5EEe4a3a195cC726B0Aa3D7988Ed480679a",
+          { from: account }
         );
         console.log(contract);
         contract.methods
           .setAvatar("default", added.data.Hash)
-          .send({ from: account })
+          .send()
           .then((res) => {
             console.log(res);
           });
