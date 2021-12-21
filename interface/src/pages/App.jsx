@@ -62,8 +62,7 @@ const App = () => {
           { from: account }
         );
         console.log(contract);
-        contract.methods
-          .setAvatar("default", added.data.Hash)
+        contract.methods["setAvatar(string,string)"]("default", added.data.Hash)
           .send()
           .then((res) => {
             console.log(res);
