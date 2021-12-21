@@ -8,8 +8,8 @@ Upload your web3 avatar
 
 Call `https://avatar.web3a.org/v1/0x6CF7B7b986Bb4B49dF0BFe16C1b098893F9be41f` get your avatar!
 
-| avatar                                                       | Gateway |
-| ------------------------------------------------------------ | ------- |
-| ![default](https://avatar.web3a.org/v1/0x6CF7B7b986Bb4B49dF0BFe16C1b098893F9be41f) | Default |
-| ![default](https://avatar.web3a.org/v1/0x6CF7B7b986Bb4B49dF0BFe16C1b098893F9be41f?gateway=ipfs) | Ipfs    |
-| ![default](https://avatar.web3a.org/v1/0x6CF7B7b986Bb4B49dF0BFe16C1b098893F9be41f?gateway=dweb) | Dweb    |
+| avatar                                                       | gateway | address |
+| ------------------------------------------------------------ | ------- |---------|
+| ![default](https://avatar.web3a.org/v1/0x6CF7B7b986Bb4B49dF0BFe16C1b098893F9be41f) | Default |https://avatar.web3a.org/v1/0x6CF7B7b986Bb4B49dF0BFe16C1b098893F9be41f|
+| ![ipfs](https://avatar.web3a.org/v1/0x6CF7B7b986Bb4B49dF0BFe16C1b098893F9be41f?gateway=ipfs) | Ipfs    |https://avatar.web3a.org/v1/0x6CF7B7b986Bb4B49dF0BFe16C1b098893F9be41f?gateway=ipfs|
+| ![dweb](https://avatar.web3a.org/v1/0x6CF7B7b986Bb4B49dF0BFe16C1b098893F9be41f?gateway=dweb) | Dweb    |https://avatar.web3a.org/v1/0x6CF7B7b986Bb4B49dF0BFe16C1b098893F9be41f?gateway=dweb|
