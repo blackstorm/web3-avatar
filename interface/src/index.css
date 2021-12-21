@@ -26,6 +26,10 @@
   }
 }
 
+.main-bg {
+  background-color: #fff3db;
+}
+
 .main-text-color,
 .get-w3a-btn {
   color: #c84648 !important;

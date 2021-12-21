@@ -17,6 +17,7 @@
     "axios": "^0.24.0",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
+    "ethers": "^5.5.2",
     "events": "^3.3.0",
     "hox": "^1.1.5",
     "less": "^4.1.2",
@@ -26,9 +27,7 @@
     "react-router-dom": "6",
     "stream-browserify": "^3.0.0",
     "styled-components": "^5.3.3",
-    "util": "^0.12.4",
-    "web3": "^1.6.1",
-    "web3-eth-contract": "^1.6.1"
+    "util": "^0.12.4"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",

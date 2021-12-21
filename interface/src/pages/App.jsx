@@ -7,7 +7,7 @@ import { imageReader } from "../utils/reader";
 import styled from "styled-components";
 import { useWeb3React } from "@web3-react/core";
 import ABI from "../abi/Web3Avatar.abi.json";
-import Contract from "web3-eth-contract";
+import { ethers } from "ethers";
 
 const ImageContainer = styled.div`
   width: 250px;
@@ -52,24 +52,21 @@ const App = () => {
       try {
         setIsUploading(true);
         const added = await ipfs.add(file);
-        console.log("added", added);
-        Contract.setProvider(library);
-        console.log("new Contract");
-        const contract = new Contract(
-          ABI,
-          // contract address
+
+        const signer = library.getSigner();
+        const contract = new ethers.Contract(
           "0xEBFFe5EEe4a3a195cC726B0Aa3D7988Ed480679a",
-          { from: account }
+          ABI,
+          signer
         );
-        console.log(contract);
-        contract.methods["setAvatar(string,string)"]("default", added.data.Hash)
-          .send()
-          .then((res) => {
-            console.log(res);
-          });
-        console.log("contrac123t");
-      } finally {
+        contract.setAvatar("default", added.data.Hash).then((res) => {
+          setIsUploading(false);
+          // TODO handle res
+          // console.log(res);
+        });
+      } catch (err) {
         setIsUploading(false);
+        console.log(err);
       }
     }
   };
